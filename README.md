@@ -2,7 +2,7 @@
 
 A simple and engaging number guessing game built with HTML, CSS, and JavaScript. Test your intuition by guessing a number between 1-100!
 
-[Live Demo](https://abhi2701singh.github.io/Guess-The-Number/) 🎯
+[Live Demo](https://guessimg-game-abhi07.netlify.app/) 🎯
 
 ## Languages Used 🛠️
 
