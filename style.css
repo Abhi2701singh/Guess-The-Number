@@ -1,168 +1,218 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
-body {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    padding: 20px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-.game-container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin: auto;
-    border-radius: 15px;
-}
+        body {
+            background: linear-gradient(45deg, #0a0a2e, #1a1a4f);
+            min-height: 100vh;
+            color: white;
+            overflow: hidden;
+        }
 
+        .screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: url('https://i.imgur.com/8FcZDpR.png') center/cover;
+        }
 
-/* Mobile styles */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
 
-@media (max-width: 768px) {
-    .game-container {
-        width: 340px;
-        padding: 2rem;
-    }
-    h1 {
-        font-size: 1.8rem;
-    }
-    p {
-        font-size: 1rem;
-    }
-    .input-section {
-        margin: 1.5rem 0;
-    }
-    #message {
-        min-height: 60px;
-    }
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
+        h1 {
+            margin-bottom: 25px;
+            color: #FFD700;
+            font-size: 2.2em;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
 
-/* Laptop styles */
+        input {
+            padding: 12px 20px;
+            width: 250px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
 
-@media (min-width: 769px) {
-    .game-container {
-        width: 500px;
-        padding: 1.5rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        align-items: center;
-    }
-    h1 {
-        grid-column: 1 / -1;
-        font-size: 1.6rem;
-        margin-bottom: 0.5rem;
-    }
-    p {
-        grid-column: 1 / -1;
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-    }
-    .input-section {
-        margin: 0.5rem 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-    #message {
-        min-height: 45px;
-        margin: 0;
-    }
-    .stats {
-        margin-top: 0.5rem;
-        padding-top: 0.5rem;
-    }
-}
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
 
+        .btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px 5px;
+            width: 200px;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
 
-/* Common styles for both */
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
 
-h1 {
-    color: #FFD700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
+        .btn-danger {
+            background: linear-gradient(45deg, #ff4b4b, #ff6b6b);
+            color: white;
+        }
 
-.input-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
+        .btn-success {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
 
-input {
-    padding: 10px;
-    width: 150px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 1.2rem;
-    background: rgba(255, 255, 255, 0.9);
-}
+        #message {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
 
-button {
-    background: #FFD700;
-    color: #1e3c72;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    width: 150px;
-    margin: 0 auto;
-}
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+        .error {
+            background: rgba(255, 75, 75, 0.2);
+            border: 1px solid rgba(255, 75, 75, 0.3);
+        }
 
-#message {
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    word-wrap: break-word;
-}
+        .stats {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-.stats {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
+        .rank-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
 
-.success {
-    background: rgba(0, 255, 0, 0.2);
-    animation: pulse 1.5s infinite;
-}
+        .rank-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
 
-.error {
-    background: rgba(255, 0, 0, 0.2);
-}
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
 
-#resetBtn {
-    background: #FF6B6B;
-    color: white;
-    margin-top: 1rem;
-}
+        .exit-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 75, 75, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
+        .exit-btn:hover {
+            background: #ff4b4b;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            input {
+                width: 200px;
+            }
+            .btn {
+                width: 180px;
+            }
+        }
+
+        .watermark {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .watermark::before {
+            content: "Created by Abhinav";
+            position: absolute;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.15);
+            transform: rotate(-45deg);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+            white-space: nowrap;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            animation: fadeInWatermark 1.5s ease;
+        }
+
+        @keyframes fadeInWatermark {
+            from {
+                opacity: 0;
+                transform: rotate(-45deg) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(-45deg) translateY(0);
+            }
+        }
+    
