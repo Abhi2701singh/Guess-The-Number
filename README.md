@@ -79,30 +79,16 @@ Ensure you have the following installed on your system:
 
 If you want to host the game online, consider using platforms like GitHub Pages, Netlify, or Vercel for free hosting.
 
----
-
-By following these steps, you should be able to run the game locally and start playing. If you encounter any issues, feel free to open an issue on the GitHub repository.
-
 ## Project Structure 📁
 
-
+```
 Guess-The-Number/
-
-
 ├── index.html
-
-
 ├── style.css
-
-
 ├── script.js
-
-
 ├── README.md
-
-
 └── LICENSE
-
+```
 
 ## Contributing 🤝
 
@@ -118,7 +104,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author ✍️
 
-**Abhishek Singh**
+**Abhinav Singh**
 - GitHub: [@Abhi2701singh](https://github.com/Abhi2701singh)
 
 ## Acknowledgments 👏
@@ -128,9 +114,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Focus on user experience and responsive design
 
 ---
+
+🎉 Happy Coding!
+
+Let me know if you'd like further customization! 😊
+
 ⭐ Star this repo if you like what you see!
-
-
 
 ## Installation
 
