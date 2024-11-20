@@ -5,27 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Guessing Game</title>
-
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+    
 </head>
 
 <body>
-    <div class="game-container">
-        <h1>Guess The Number!</h1>
-        <p>Try to guess the number between 1 and 100</p>
-
-        <div class="input-section">
-            <input type="number" id="guessInput" min="1" max="100" placeholder="Enter guess" inputmode="numeric" pattern="[0-9]*">
-            <button onclick="checkGuess()" id="guessBtn">Guess!</button>
-        </div>
-
-        <div id="message"></div>
-
-        <div class="stats">
-            <p>Attempts: <span id="attempts">0</span></p>
-            <button onclick="resetGame()" id="resetBtn">New Game</button>
+    <!-- Welcome Screen -->
+    <div class="screen" id="welcomeScreen">
+        <div class="container">
+            <h1>🎮 Number Game</h1>
+            <p>Enter your name to start the adventure!</p>
+            <input type="text" id="playerName" placeholder="Your Name">
+            <div class="button-group">
+                <button class="btn btn-success" onclick="startGame()">Start Game</button>
+                <button class="btn btn-danger" onclick="exitGame()">Exit Game</button>
+            </div>
         </div>
     </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="gameScreen" style="display: none;">
+        <button class="exit-btn" onclick="confirmExit()">Exit Game</button>
+        <div class="container">
+            <h1>Number Guessing Game</h1>
+            <p>Welcome, <span id="playerNameDisplay"></span>! 🎮</p>
+            <p>Guess a number between 1 and 100</p>
+            
+            <input type="number" id="guessInput" placeholder="Your guess">
+            <div class="button-group">
+                <button class="btn" onclick="checkGuess()">Check</button>
+            </div>
+            <div id="message"></div>
+            
+            <div class="stats">
+                <p>🎯 Attempts: <span id="attempts">0</span></p>
+                <p>🏆 Best Score: <span id="highScore">-</span></p>
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="showRankings()">Rankings</button>
+                    <button class="btn" onclick="initGame()">New Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rankings Screen -->
+    <div class="screen" id="rankScreen" style="display: none;">
+        <button class="exit-btn" onclick="confirmExit()">Exit Game</button>
+        <div class="container">
+            <h1>🏆 Top Players</h1>
+            <div id="rankingsList"></div>
+            <button class="btn" onclick="backToGame()">Back to Game</button>
+        </div>
+    </div>
+
+    <div class="watermark">Created by Abhinav</div>
 
     <script src="script.js"></script>
 </body>
