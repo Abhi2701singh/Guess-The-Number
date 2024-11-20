@@ -1,65 +1,117 @@
-let targetNumber;
-let attempts = 0;
-const messageDiv = document.getElementById('message');
-const attemptsSpan = document.getElementById('attempts');
-const guessInput = document.getElementById('guessInput');
-const guessBtn = document.getElementById('guessBtn');
+let secretNumber;
+let attempts;
+let currentPlayer = '';
+let players = JSON.parse(localStorage.getItem('players')) || {};
 
-function initGame() {
-    targetNumber = Math.floor(Math.random() * 100) + 1;
-    attempts = 0;
-    attemptsSpan.textContent = attempts;
-    messageDiv.textContent = '';
-    messageDiv.className = '';
-    guessInput.value = '';
-    guessInput.disabled = false;
-    guessBtn.disabled = false;
+function exitGame() {
+    if(confirm('Are you sure you want to exit the game?')) {
+        window.close();
+        window.location.href = "about:blank";
+    }
 }
 
-function checkGuess() {
-    const userGuess = parseInt(guessInput.value);
+function confirmExit() {
+    if(confirm('Are you sure you want to exit? Your progress will be saved.')) {
+        window.location.reload();
+    }
+}
 
-    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
-        messageDiv.textContent = "Please enter a valid number between 1 and 100";
-        messageDiv.className = 'error';
+function startGame() {
+    const name = document.getElementById('playerName').value.trim();
+    if (!name) {
+        alert('Please enter your name!');
+        return;
+    }
+
+    currentPlayer = name;
+    if (!players[currentPlayer]) {
+        players[currentPlayer] = { bestScore: 0, gamesPlayed: 0 };
+    }
+
+    document.getElementById('playerNameDisplay').textContent = currentPlayer;
+    document.getElementById('welcomeScreen').style.display = 'none';
+    document.getElementById('gameScreen').style.display = 'flex';
+    
+    initGame();
+}
+
+function initGame() {
+    secretNumber = Math.floor(Math.random() * 100) + 1;
+    attempts = 0;
+    document.getElementById('attempts').textContent = attempts;
+    document.getElementById('highScore').textContent = players[currentPlayer].bestScore || '-';
+    document.getElementById('message').textContent = '';
+    document.getElementById('message').className = '';
+    document.getElementById('guessInput').value = '';
+    document.getElementById('guessInput').disabled = false;
+}
+
+
+function checkGuess() {
+    const guess = parseInt(document.getElementById('guessInput').value);
+    
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+        showMessage('Please enter a valid number between 1 and 100', 'error');
         return;
     }
 
     attempts++;
-    attemptsSpan.textContent = attempts;
+    document.getElementById('attempts').textContent = attempts;
 
-    if (userGuess === targetNumber) {
-        messageDiv.textContent = `🎉 Congratulations! You got it in ${attempts} attempts!`;
-        messageDiv.className = 'success';
-        guessInput.disabled = true;
-        guessBtn.disabled = true;
+    if (guess === secretNumber) {
+        handleWin();
     } else {
-        const difference = Math.abs(targetNumber - userGuess);
-        let hint = userGuess < targetNumber ? "Too low! " : "Too high! ";
-
-        if (difference > 40) hint += "You're freezing cold! ❄️";
-        else if (difference > 20) hint += "You're cold! 🌨️";
-        else if (difference > 10) hint += "You're getting warm! 🌤️";
-        else if (difference > 5) hint += "You're hot! 🔥";
-        else hint += "You're burning hot! 🌋";
-
-        messageDiv.textContent = hint;
-        messageDiv.className = '';
+        const hint = guess > secretNumber ? 'Too high! Try lower 👇' : 'Too low! Try higher ☝️';
+        showMessage(hint, 'error');
     }
-
-    guessInput.value = '';
-    guessInput.focus();
+    
+    document.getElementById('guessInput').value = '';
 }
 
-function resetGame() {
-    initGame();
-    guessInput.focus();
+function handleWin() {
+    showMessage('🎉 Congratulations! You got it!', 'success');
+    document.getElementById('guessInput').disabled = true;
+    
+    players[currentPlayer].gamesPlayed++;
+    if (!players[currentPlayer].bestScore || attempts < players[currentPlayer].bestScore) {
+        players[currentPlayer].bestScore = attempts;
+        document.getElementById('highScore').textContent = attempts;
+    }
+    localStorage.setItem('players', JSON.stringify(players));
 }
 
-guessInput.addEventListener('keyup', function(event) {
-    if (event.key === 'Enter') {
-        checkGuess();
-    }
+function showMessage(text, className) {
+    const messageEl = document.getElementById('message');
+    messageEl.textContent = text;
+    messageEl.className = className;
+}
+
+function showRankings() {
+    document.getElementById('gameScreen').style.display = 'none';
+    document.getElementById('rankScreen').style.display = 'flex';
+    
+    const sortedPlayers = Object.entries(players)
+        .sort(([,a], [,b]) => a.bestScore - b.bestScore)
+        .filter(([,player]) => player.bestScore > 0);
+
+    document.getElementById('rankingsList').innerHTML = sortedPlayers
+        .map(([name, player], index) => `
+            <div class="rank-item">
+                <span>👑 #${index + 1} ${name}</span>
+                <span>🎯 Best: ${player.bestScore} | 🎮 Games: ${player.gamesPlayed}</span>
+            </div>
+        `).join('');
+}
+
+function backToGame() {
+    document.getElementById('rankScreen').style.display = 'none';
+    document.getElementById('gameScreen').style.display = 'flex';
+}
+
+document.getElementById('playerName').addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') startGame();
 });
 
-initGame();
+document.getElementById('guessInput').addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') checkGuess();
+});
